@@ -1,0 +1,402 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Take Care</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(135deg, #fff1f5, #f4f0ff);
+      color: #3d3442;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 600px;
+      margin: auto;
+      padding: 35px 0 60px;
+      text-align: center;
+    }
+
+    /* Main card */
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 30px 22px;
+      box-shadow: 0 15px 45px rgba(100, 70, 100, 0.12);
+      margin-bottom: 25px;
+    }
+
+    .emoji {
+      font-size: 65px;
+      animation: bounce 2s infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #8c5b82;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #8c5b82;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .subtitle {
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    /* Buttons */
+
+    button {
+      border: none;
+      padding: 13px 22px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #d98eb5;
+      color: white;
+      transition: 0.25s;
+      margin-top: 15px;
+      box-shadow: 0 7px 18px rgba(217, 142, 181, 0.25);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    /* Mood section */
+
+    .mood-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .mood-buttons button {
+      background: #f0d5e4;
+      color: #68495e;
+      margin-top: 0;
+      box-shadow: none;
+    }
+
+    #moodResult {
+      margin-top: 18px;
+      font-weight: 600;
+      min-height: 25px;
+    }
+
+    /* Care list */
+
+    .care-list {
+      text-align: left;
+      margin-top: 15px;
+    }
+
+    .care-item {
+      background: #fff5f8;
+      border-radius: 15px;
+      padding: 14px;
+      margin: 9px 0;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .care-item:hover {
+      transform: translateX(4px);
+    }
+
+    .care-item.done {
+      text-decoration: line-through;
+      opacity: 0.55;
+      background: #eee7f4;
+    }
+
+    /* Hidden message */
+
+    #secret {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background: #fff0f6;
+      border-radius: 20px;
+      animation: appear 0.5s ease;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .footer {
+      font-size: 13px;
+      color: #8a7c87;
+      margin-top: 30px;
+    }
+
+    .signature {
+      margin-top: 18px;
+      font-weight: 600;
+      color: #8c5b82;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Opening -->
+
+    <div class="card">
+
+      <div class="emoji">🧸</div>
+
+      <h1>Hey, you.</h1>
+
+      <p class="subtitle">
+        Yes, you. The sick one. 😑
+      </p>
+
+      <p>
+        Taratari thik hoye jaaa, mariaaaaaa.🥹
+      </p>
+
+      <p style="margin-top:12px;">
+        So, ektuuu I made you this little corner of the internet
+        because apparently saying <b>"take care"</b> once wasn't enough.
+      </p>
+
+    </div>
+
+
+    <!-- Care message -->
+
+    <div class="card">
+
+      <h2>Your only job right now</h2>
+
+      <div class="care-list">
+
+        <div class="care-item" onclick="complete(this)">
+          🛌 Get some proper rest
+        </div>
+
+        <div class="care-item" onclick="complete(this)">
+          💧 Drink enough water
+        </div>
+
+        <div class="care-item" onclick="complete(this)">
+          Don't watch too much phone
+        </div>
+
+        <div class="care-item" onclick="complete(this)">
+          💊 Take your medicine
+        </div>
+
+      </div>
+
+      <p style="margin-top:18px;">
+        Tap each one when you've actually done it. 👀
+      </p>
+
+    </div>
+
+
+    <!-- Mood -->
+
+    <div class="card">
+
+      <h2>🌡️ Okay, important question...</h2>
+
+      <p>
+        Currently kmon achis bol?
+      </p>
+
+      <div class="mood-buttons">
+
+        <button onclick="mood('mild')">
+          😌 Not too bad
+        </button>
+
+        <button onclick="mood('medium')">
+          😵 Pretty bad
+        </button>
+
+        <button onclick="mood('bad')">
+          🫠 Absolutely dying
+        </button>
+
+      </div>
+
+      <div id="moodResult"></div>
+
+    </div>
+
+
+    <!-- Secret -->
+
+    <div class="card">
+
+      <h2>One more thing...</h2>
+
+      <p>
+        There's a message hidden here.
+      </p>
+
+      <button onclick="showSecret()">
+        Don't press this 👀
+      </button>
+
+      <div id="secret">
+
+        <p>
+          Okay fine.
+        </p>
+
+        <p style="margin-top:10px;">
+          I hope you get better soon.
+          Aj after 6 days u got urself free time. But ajkei esb 🥲
+          I know ei msg gulo tui skip skip kre porbi but ami amr task cmplt krbo 😤
+        </p>
+
+        <p style="margin-top:12px;">
+          Take care of yourself, okay?
+        </p>
+
+        <div class="signature">
+          — From, ANKUR 😤😤😤😤😤
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Final -->
+
+    <div class="card">
+
+      <div style="font-size:45px;">🧸</div>
+
+      <h2>Get well soon.</h2>
+
+      <p>
+        Sorir kharap thakle klke r din ta apollo t just ektu manage kre ne re 🫠
+        Just rest, recover and take care of yourself.
+      </p>
+
+      <button onclick="finalMessage()">
+        One last button
+      </button>
+
+      <p id="finalResult" style="margin-top:18px;"></p>
+
+    </div>
+
+
+    <div class="footer">
+      Made with questionable amounts of concern
+    </div>
+
+  </div>
+
+
+  <script>
+
+    function complete(element) {
+      element.classList.toggle("done");
+    }
+
+
+    function mood(level) {
+
+      const result = document.getElementById("moodResult");
+
+      if (level === "mild") {
+
+        result.innerHTML =
+          "Good. Keep resting though. 😌";
+
+      }
+
+      else if (level === "medium") {
+
+        result.innerHTML =
+          "Besi kharap lgle doctor dekhaaa🫩";
+
+      }
+
+      else {
+
+        result.innerHTML =
+          "Emergency protocol:sleep. Immediately. 🫠";
+
+      }
+
+    }
+
+
+    function showSecret() {
+
+      const secret = document.getElementById("secret");
+
+      secret.style.display = "block";
+
+    }
+
+  </script>
+
+</body>
+</html>
+```
